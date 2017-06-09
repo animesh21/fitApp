@@ -1,19 +1,17 @@
 <ion-content class="no-scroll">
 	<img src="assets/img/signup.jpg">
 	<div padding>
-		<form>
+		<form [formGroup]="signup" (ngSubmit)="logSignUpForm()">
 			<ion-item>
 				<ion-label for="email"></ion-label>
-				<ion-input type="email" value="" placeholder="Email"></ion-input>
+				<ion-input type="email" formControlName="email" value="" placeholder="Email"></ion-input>
 			</ion-item>
 			<ion-item>
 				<ion-label for="password"></ion-label>
-				<ion-input type="password" placeholder="Password"></ion-input>
+				<ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
 			</ion-item>
-		</form>			
-		<div padding-vertical>
-			<button ion-button block color="primary" >SIGN UP</button>
-		</div>					
+			<button ion-button block type="submit" [disabled]="!signup.valid" color="primary">SIGN UP</button>
+		</form>
 		<button [navPush]="loginPage"  ion-button clear block><span style="color:#555;" >ALREADY HAVE AN ACCOUNT? </span>&nbsp;&nbsp;SIGN IN</button>
 	</div>	
 </ion-content>

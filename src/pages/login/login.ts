@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { PasswordPage } from '../password/password';
 import { RemoteServiceProvider } from '../../providers/remote-service/remote-service';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'page-login',
@@ -11,19 +12,20 @@ import { RemoteServiceProvider } from '../../providers/remote-service/remote-ser
 })
 
 export class LoginPage {
-	
-	public user;
+
+	private login: FormGroup;
 
 	signupPage = SignupPage;
 	passwordPage = PasswordPage;
-	constructor(public navCtrl: NavController, private remoteServiceProvider: RemoteServiceProvider) {
-		this.loadPeople();
+	constructor(public navCtrl: NavController, private remoteServiceProvider: RemoteServiceProvider, private formBuilder: FormBuilder) {
+		this.login = this.formBuilder.group({
+			email: ['', Validators.email],
+			password: ['', Validators.required],
+		});
 	}
 
-	loadPeople(){
-		this.remoteServiceProvider.getUser().subscribe((data) => {
-			this.user = data;
-		});
+	logForm() {
+		console.log(this.login.value.email)
 	}
 
 	ionViewDidLoad() {

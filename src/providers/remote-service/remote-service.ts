@@ -12,18 +12,32 @@ import 'rxjs/add/operator/catch';
 */
 @Injectable()
 export class RemoteServiceProvider {
-  
-  url: string = "https://randomuser.me/api";
+
+  url: string = "http://127.0.0.1:8000/users/";
+  login_url: string = "http://127.0.0.1:8000/login/";
 
   constructor(public http: Http) {
     console.log('Hello RemoteServiceProvider Provider');
   }
 
   getUser() {
-  	console.log('inside getUser');
   	return this.http.get(this.url)
   	.do((res: Response) => console.log(res.json()))
   	.map((res: Response) => res.json());
+  }
+
+  createUser(email: string, password: string) {
+    var username = email.split("@")[0];
+    return this.http.post(this.url, {
+      "username": username,
+      "email": email,
+      "password": password,})
+    .do((res: Response) => console.log(res.json()))
+    .map((res: Response) => res.json());
+  }
+
+  loginUser(username: string, password: string) {
+  	this.http.post(this.login_url, {username: username, password: password}).do((res: Response) => console.log(res.json()))
   }
 
 }
