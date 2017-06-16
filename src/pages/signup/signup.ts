@@ -13,27 +13,35 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 export class SignupPage {
 
-    private signup: FormGroup;
+  private signup: FormGroup;
 
-	loginPage = LoginPage
-	constructor(public navCtrl: NavController, private remoteServiceProvider: RemoteServiceProvider, private formBuilder: FormBuilder) {
-        this.signup = this.formBuilder.group({
-            email: ['', Validators.email],
-            password: ['', Validators.required]
-        })
-	}
+  loginPage = LoginPage;
+  constructor(public navCtrl: NavController,
+              private remoteServiceProvider: RemoteServiceProvider,
+              private formBuilder: FormBuilder) {
+    this.signup = this.formBuilder.group({
+      username: ['', Validators.required],
+      email: ['', Validators.email],
+      password: ['', Validators.required]
+    })
+  }
 
-    logSignUpForm() {
-        var email = this.signup.value.email
-        var password = this.signup.value.password
-        this.remoteServiceProvider.createUser(email, password)
-        .subscribe((data) => {
-            console.log(data);
+  signUpUser() {
+    var username = this.signup.value.username;
+    var email = this.signup.value.email;
+    var password = this.signup.value.password;
+    this.remoteServiceProvider.createUser(username, email, password)
+    .subscribe((data) => {
+      this.navCtrl.push(this.loginPage, {'status': true})
+        .then(function () {
+          console.log('signup successful!');
+        }, function (error) {
+          console.error(error);
         });
-    }
-	
-    ionViewDidLoad() {
-		console.log('ionViewDidLoad signup');
-	}
+    });
+  }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad signup');
+  }
 }

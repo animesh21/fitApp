@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-title>
+      FitApp
+    </ion-title>
+</ion-header>
+
+<ion-content>
+  <div padding>
+    <div class="header">
+      <ion-item>
+        <ion-header> User Profile </ion-header> <button ion-button block id="logout" color="light" type="submit" (click)="logoutUser()">Logout</button>
+      </ion-item>
+    </div>
+    <ion-item>
+      Hi, {{ shareService.getIsLoggedIn() ? shareService.getUsername(): "" }}
+    </ion-item>
+    <div id="logs">
+    </div>
+  </div>
+</ion-content>

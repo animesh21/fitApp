@@ -1,17 +1,44 @@
-<ion-content class="no-scroll">
-	<img src="assets/img/signup.jpg">
-	<div padding>
-		<form [formGroup]="signup" (ngSubmit)="logSignUpForm()">
-			<ion-item>
-				<ion-label for="email"></ion-label>
-				<ion-input type="email" formControlName="email" value="" placeholder="Email"></ion-input>
-			</ion-item>
-			<ion-item>
-				<ion-label for="password"></ion-label>
-				<ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
-			</ion-item>
-			<button ion-button block type="submit" [disabled]="!signup.valid" color="primary">SIGN UP</button>
-		</form>
-		<button [navPush]="loginPage"  ion-button clear block><span style="color:#555;" >ALREADY HAVE AN ACCOUNT? </span>&nbsp;&nbsp;SIGN IN</button>
-	</div>	
+<ion-header>
+    <ion-title>
+      FitApp
+    </ion-title>
+</ion-header>
+
+<ion-content>
+  <!--<img src="assets/img/signup.jpg">-->
+  <div padding>
+    <form [formGroup]="signup" (ngSubmit)="signUpUser()">
+      <ion-item>
+        <ion-label for="username"></ion-label>
+        <ion-input type="username" formControlName="username" value="" placeholder="Usernmae"></ion-input>
+      </ion-item>
+      <div *ngIf="signup.controls['username'].errors">
+        <ion-item>
+          <span style="color: red"> Username can't be blank </span>
+        </ion-item>
+      </div>
+      <ion-item>
+        <ion-label for="email"></ion-label>
+        <ion-input type="email" formControlName="email" value="" placeholder="Email"></ion-input>
+      </ion-item>
+      <div *ngIf="signup.controls['email'].errors">
+          <ion-item>
+            <span style="color: #ff0000">Invalid email</span>
+          </ion-item>
+      </div>
+      <ion-item>
+        <ion-label for="password"></ion-label>
+        <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
+      </ion-item>
+      <div *ngIf="signup.controls['password'].errors">
+        <ion-item>
+          <span style="color: red"> Password can't be blank </span>
+        </ion-item>
+      </div>
+      <button ion-button block type="submit" [disabled]="!signup.valid" color="primary">SIGN UP</button>
+    </form>
+    <button [navPush]="loginPage" ion-button clear block><span style="color:#555;">ALREADY HAVE AN ACCOUNT? </span>&nbsp;&nbsp;SIGN
+      IN
+    </button>
+  </div>
 </ion-content>

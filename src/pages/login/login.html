@@ -1,10 +1,19 @@
-<ion-content class="no-scroll">
-	<img src="assets/img/login.jpg">
+<ion-header>
+    <ion-title>
+      FitApp
+    </ion-title>
+</ion-header>
+
+<ion-content>
+	<!--<img src="assets/img/login.jpg">-->
 	<div padding>
-		<form [formGroup]="login" (ngSubmit)="logForm()">
+    <ion-item>
+      <span>{{ navParams.get('status') ? 'Sign Up successful, now login to your account': ''}} </span>
+    </ion-item>
+		<form [formGroup]="login" (ngSubmit)="loginUser()">
 			<ion-item>
-				<ion-label for="email"></ion-label>
-				<ion-input type="email" formControlName="email" value="" placeholder="Email"></ion-input>
+				<ion-label for="username"></ion-label>
+				<ion-input type="username" formControlName="username" value="" placeholder="Username"></ion-input>
 			</ion-item>
 			<ion-item>
 				<ion-label for="password"></ion-label>
@@ -12,10 +21,11 @@
 			</ion-item>
 			<button ion-button block type="submit" [disabled]="!login.valid" color="secondary"> SIGN IN </button>
 		</form>
-			
-					
-		<button [navPush]="signupPage"  ion-button clear block><span style="color:#555;" >DON'T HAVE AN ACCOUNT? </span>&nbsp;&nbsp;SIGN UP</button>
+    <button ion-button block class="btn-auth btn-facebook large" (click)="doFbLogin()">Facebook Login</button>
+    <!--<a class="btn-auth btn-facebook large" ngDefaultControl="true" ng-click="doLog()">Console Log</a>-->
+
+		<button [navPush]="signupPage" ion-button clear block><span style="color:#555;" >DON'T HAVE AN ACCOUNT? </span>&nbsp;&nbsp;SIGN UP</button>
 		<hr>
-		<button [navPush]="passwordPage"  ion-button clear block color="danger"><span style="color:#555;" >FOREGOT POSSWORD? </span>&nbsp;&nbsp;RESET NOW</button>
-	</div>	
+		<button [navPush]="passwordPage" ion-button clear block color="danger"><span style="color:#555;" >FOREGOT POSSWORD? </span>&nbsp;&nbsp;RESET NOW</button>
+	</div>
 </ion-content>

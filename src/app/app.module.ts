@@ -5,20 +5,21 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { PasswordPage } from '../pages/password/password';
-import { PeopleServiceProvider } from '../providers/people-service/people-service';
+import { ProfilePage } from '../pages/profile_view/profile_view'
 import { RemoteServiceProvider } from '../providers/remote-service/remote-service';
+import { Facebook } from  '@ionic-native/facebook'
 
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
     SignupPage,
-    PasswordPage
+    PasswordPage,
+    ProfilePage,
   ],
   imports: [
     BrowserModule,
@@ -30,14 +31,15 @@ import { RemoteServiceProvider } from '../providers/remote-service/remote-servic
     MyApp,
     LoginPage,
     SignupPage,
-    PasswordPage
+    PasswordPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PeopleServiceProvider,
-    RemoteServiceProvider
+    RemoteServiceProvider,
+    Facebook,
   ]
 })
 export class AppModule {}
