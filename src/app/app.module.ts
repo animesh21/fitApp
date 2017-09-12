@@ -9,7 +9,7 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { PasswordPage } from '../pages/password/password';
-import { ProfilePage } from '../pages/profile_view/profile_view'
+import { ProfilePage } from '../pages/profile_view/profile_view';
 import { RemoteServiceProvider } from '../providers/remote-service/remote-service';
 import { Facebook } from  '@ionic-native/facebook'
 

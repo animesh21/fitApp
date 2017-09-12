@@ -30,7 +30,7 @@ export class SignupPage {
     var username = this.signup.value.username;
     var email = this.signup.value.email;
     var password = this.signup.value.password;
-    this.remoteServiceProvider.createUser(username, email, password)
+    this.remoteServiceProvider.createUser(username, email, false, password)
     .subscribe((data) => {
       this.navCtrl.push(this.loginPage, {'status': true})
         .then(function () {

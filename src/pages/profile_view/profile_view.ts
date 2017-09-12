@@ -28,6 +28,7 @@ export class ProfilePage {
 
     }
   }
+
   ionViewCanEnter(){
     let env = this;
     NativeStorage.getItem('user')

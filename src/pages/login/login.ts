@@ -49,6 +49,7 @@ export class LoginPage {
       .then((response) => {
 
         let userId = response.authResponse.userID;
+        let token = response.authResponse.accessToken;
         this.shareService.setUsername(userId);
         this.shareService.setIsLoggedIn(true);
         this.shareService.setLoginType('fb');
@@ -58,7 +59,13 @@ export class LoginPage {
         Facebook.api("/me?fields=name,email,gender", params)
           .then((user) => {
             console.log(user.email);
-            this.shareService.setUsername(user.name);
+            this.remoteServiceProvider.createUser(user.email, user.email, true, token)
+              .subscribe((res) => {
+              console.log('fb signup successful')
+              }, (error) => {
+              console.log(error);
+              });
+            this.shareService.setUsername(user.email);
             NativeStorage.setItem('user',
               {
                 name: user.name,
@@ -88,35 +95,29 @@ export class LoginPage {
 
 
   loginUser() {
-    var username = this.login.value.username;
-    var password = this.login.value.password;
+    let username = this.login.value.username;
+    let password = this.login.value.password;
     this.remoteServiceProvider.loginUser(username, password)
       .subscribe((data) => {
+      console.log(data);
         this.shareService.setUsername(data.username);
         this.shareService.setIsLoggedIn(true);
         this.shareService.setLoginType('api');
 
-        NativeStorage.setItem('user',
-          {
-            name: username,
-            gender: null,
-            type: 'api'
-          }).then(() => {
         this.navCtrl.push(this.profilePage, {
           status: true, username: data.username,
           remoteServiceProvider: this.remoteServiceProvider
         })
-          .then(() => {
-            console.log('login successful');
+          .then((data) => {
+            console.log('login successful: ', data);
           }, (error) => {
             console.error(error);
           });
         }, (error) => {
           console.error(error);
         });
-      }, (error) => {
-      console.error(error);
-      });
+
+
   }
 
   ionViewDidLoad() {
